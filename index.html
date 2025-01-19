@@ -25,7 +25,7 @@
                         <input class="form-control me-auto" type="text" id="textdata" placeholder="Location Name">
                         <button type="button" id="btnsum" class="btn btn-secondary">Submit</button>
                         <div class="vr"></div>
-                        <button type="button" class="btn btn btn-primary">Saved</button>
+                        <button id="save-weather-btn" type="button" class="btn btn btn-primary">Saved</button>
                     </div>
                     <h1 id="city" class="fs-1 ml-auto mr-4 mt-3 mb-0">City</h1>
                     <p id="weath" class="ml-auto mr-4 mb-0 med-font">Weather</p>
@@ -39,7 +39,17 @@
                 <p id="time" class="time-font fs-1 mb-0 ml-4 mt-auto">Time <span class="sm-font"></span></p>
                 <p id="date" class="ml-4 mb-4">Date</p>
             </div>
+            <div class="sav">
+                <h2>Saved Weather Info</h2>
+                <ul id="saved-weather-list" style="list-style-type: circle;">
+                    <span>City</span>
+                    <span>Temp</span>
+                </ul>
+            </div>
         </div>
+
+
+
     </div>
 
 
@@ -170,7 +180,7 @@
 
             })
 
-             //enter btn click event
+            //enter btn click event
             $('#textdata').keydown((event) => {
                 if (event.keyCode == 13) {
                     let textdata = $('#textdata').val()
@@ -292,6 +302,49 @@
             })
 
 
+
+            // Function to load saved weather from localStorage
+            function loadSavedWeather() {
+                const savedWeather = JSON.parse(localStorage.getItem("savedWeather")) || [];
+                const savedWeatherList = $("#saved-weather-list");
+                savedWeatherList.empty(); // Clear previous list
+
+                savedWeather.forEach((weather, index) => {
+                    savedWeatherList.append(`<li> ${weather.condition}   -      ${weather.temp}  </li>`);
+                });
+            }
+
+            // Save Weather Button Click Event
+            $("#save-weather-btn").click(function () {
+                const currentTemp = $("#temp").text();
+                const currentCondition = $("#city").text();
+                // const currentIcon = $("#weath").text();
+
+
+                const weatherData = {
+                    temp: currentTemp,
+                    condition: currentCondition,
+                    // icon: currentIcon,
+                };
+
+                // Get saved weather from localStorage
+                let savedWeather = JSON.parse(localStorage.getItem("savedWeather")) || [];
+                savedWeather.push(weatherData);
+
+                // Save back to localStorage
+                localStorage.setItem("savedWeather", JSON.stringify(savedWeather));
+
+                // Update the saved weather list
+                loadSavedWeather();
+            });
+
+            // Load saved weather on page load
+            loadSavedWeather();
+
+
+
+
         })
 
     </script>
+  
