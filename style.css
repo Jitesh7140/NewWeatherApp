@@ -22,6 +22,22 @@ body {
     margin-bottom: 0px;
 }
 
+@media (max-width:600px) {
+    #city{
+        font-size: 35px!important;
+    }
+    #weath{
+        font-size: 35px!important;
+    }
+    #temp{
+        font-size: 35px!important;
+    }
+    #time{
+        font-size: 35px!important;
+    }
+    
+}
+
 .time-font {
     font-size: 50px;
 }
