@@ -73,6 +73,7 @@
                         if (this.readyState == 4 && this.status == 200) {
                             let weatherdata = JSON.parse(xhr.response)
                             console.log(weatherdata)
+
                             let iconcode = weatherdata.weather[0].icon
                             let iconurl = `http://openweathermap.org/img/wn/${iconcode}@2x.png`
 
@@ -108,14 +109,77 @@
                             $('#temp').text(weatherdata.main.temp + "°C")
                             $('#time').text(formattedTime)
                             $('#date').text(formattedDate)
-
                             $("#textdata").val("")
+
+
+
+
+                            let atemp =weatherdata.main.temp
+                            // let atemp = 346;
+
+                    if (atemp < 0) {
+                        console.log(atemp);
+                        $('.card').css({
+                            'color': '#23232e',
+                            'background-image': 'url("./freez.jpg")',
+                        });
+                    } else if (atemp > 0 && atemp <= 10) {
+                        console.log(atemp);
+                        $('.card').css({
+                            'color': '#f0f0ff',
+                            'background-image': 'url("./very_cold2.jpeg")',
+                        });
+                    } else if (atemp > 10 && atemp <= 15) {
+                        console.log(atemp);
+                        $('.card').css({
+                            'color': '#f0f0ff',
+                            'background-image': 'url("./cold.jpg")',
+                        });
+                    } else if (atemp > 15 && atemp <= 25) {
+                        console.log("4");
+                        $('.card').css({
+                            'color': '#f0f0ff',
+                            'background-image': 'url("./modrate.jpg")',
+                        });
+                    } else if (atemp > 25 && atemp <= 30) {
+                        console.log("5");
+                        $('.card').css({
+                            'color': '#f0f0ff',
+                            'background-image': 'url("./warm.jpg")',
+                        });
+ 
+                    } else if (atemp > 30 && atemp <= 35) {
+                        console.log("6");
+                        $('.card').css({
+                            'color': '#ffffff',
+                            'background-image': 'url("./hot.jpg")',
+                        });
+                    } else if (atemp > 35 && atemp <= 40) {
+                        console.log("7");
+                        $('.card').css({
+                            'color': '#23232e',
+                            'background-image': 'url("./very_hot.jpg")',
+                        });
+                    } else if (atemp > 40) {
+                        console.log("8");
+                        $('.card').css({
+                            'color': '#ffffff',
+                            'background-image': 'url("./extreme.jpg")',
+                        });
+                    }
+
+
                         }
+
 
 
 
                     }
                     xhr.send()
+
+
+                    
+
                 }
             })
 
